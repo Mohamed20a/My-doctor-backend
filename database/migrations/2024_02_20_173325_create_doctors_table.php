@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
+            // Page One
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('name');
             $table->string('email');
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('card_img')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+
+            // Page Two
             $table->unsignedBigInteger('specialty_id')->nullable();
             $table->string('education');
             $table->string('experience');
@@ -27,8 +30,9 @@ return new class extends Migration
             $table->time('time_to')->nullable();
             $table->decimal('price', 8, 2)->default(0.00);
             $table->time('waiting_time')->nullable();
+
+            $table->enum('urgent_book', ['yes', 'no'])->nullable();
             $table->decimal('urgent_price', 8, 2)->nullable()->default(null);
-            $table->enum('gender', ['male', 'female'])->nullable();
             $table->timestamps();
 
             $table->foreign('specialty_id')->references('id')->on('specialty');
